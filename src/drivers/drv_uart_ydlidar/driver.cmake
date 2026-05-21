@@ -7,7 +7,7 @@ get_filename_component(_LIDAR_ROOT "${CMAKE_CURRENT_LIST_DIR}/../../.." ABSOLUTE
 include("${_LIDAR_ROOT}/cmake/FetchThirdParty.cmake")
 
 # Track upstream master (latest) managed by this driver
-set(_YDLIDAR_GIT_REPO "https://github.com/chenzhaoqiJM/YDLidar-SDK.git")
+set(_YDLIDAR_GIT_REPO "https://gitee.com/spacemit-robotics/ydlidar-sdk")
 set(_YDLIDAR_GIT_REF "master")
 
 fetch_thirdparty(NAME ydlidar GIT_REPO "${_YDLIDAR_GIT_REPO}" GIT_REF "${_YDLIDAR_GIT_REF}" OUT_SOURCE_DIR _YDLIDAR_SRC)
