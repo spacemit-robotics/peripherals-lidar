@@ -1,0 +1,47 @@
+module: components/peripherals/lidar
+
+tests:
+  - name: lidar-functional-help
+    description: Verifies the installed UART lidar test binary is available and prints help successfully.
+    category: functional
+    scopes: [pr, scheduled]
+    timeout_s: 60
+    workdir: sdk
+    requires:
+      commands: [bash]
+      files:
+        - output/staging/bin/test_lidar_uart
+        - components/peripherals/lidar/tests/test_lidar_help.sh
+    command: |
+      export LIDAR_TEST_BINARY="${SROBOTIS_OUTPUT_STAGING}/bin/test_lidar_uart"
+      bash components/peripherals/lidar/tests/test_lidar_help.sh
+
+  - name: lidar-functional-ldd
+    description: Verifies the installed UART lidar test binary has no missing runtime library dependencies.
+    category: functional
+    scopes: [pr, scheduled]
+    timeout_s: 60
+    workdir: sdk
+    requires:
+      commands: [bash, ldd]
+      files:
+        - output/staging/bin/test_lidar_uart
+        - components/peripherals/lidar/tests/test_lidar_ldd.sh
+    command: |
+      export LIDAR_TEST_BINARY="${SROBOTIS_OUTPUT_STAGING}/bin/test_lidar_uart"
+      bash components/peripherals/lidar/tests/test_lidar_ldd.sh
+
+  - name: lidar-stability-help-repeat
+    description: Verifies the installed UART lidar test binary can print help repeatedly without intermittent failures.
+    category: stability
+    scopes: [pr, scheduled]
+    timeout_s: 60
+    workdir: sdk
+    requires:
+      commands: [bash]
+      files:
+        - output/staging/bin/test_lidar_uart
+        - components/peripherals/lidar/tests/test_lidar_help_repeat.sh
+    command: |
+      export LIDAR_TEST_BINARY="${SROBOTIS_OUTPUT_STAGING}/bin/test_lidar_uart"
+      bash components/peripherals/lidar/tests/test_lidar_help_repeat.sh
