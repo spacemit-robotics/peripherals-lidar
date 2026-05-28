@@ -1,0 +1,54 @@
+## Copyright (C) 2026 SpacemiT (Hangzhou) Technology Co. Ltd.
+## SPDX-License-Identifier: Apache-2.0
+
+module: components/peripherals/lidar
+
+tests:
+  - name: lidar-api-contract
+    description: >-
+      Builds lidar with a fake UART driver and verifies default configuration,
+      callback delivery, repeated start/stop lifecycle and public API outputs
+      without requiring hardware.
+    category: functional
+    scopes: [pr]
+    timeout_s: 900
+    workdir: sdk
+    artifacts:
+      - output/test/pr/components__peripherals__lidar/modules/components__peripherals__lidar/logs/lidar_api_contract.log
+    command: |
+      bash components/peripherals/lidar/tests/test_api_contract.sh
+
+  - name: lidar-error-paths
+    description: >-
+      Builds lidar with a fake UART driver and verifies invalid arguments,
+      missing drivers, unsupported sim lifecycle and driver init failures
+      return explicit errors instead of hanging or succeeding silently.
+    category: functional
+    scopes: [pr]
+    timeout_s: 900
+    workdir: sdk
+    artifacts:
+      - output/test/pr/components__peripherals__lidar/modules/components__peripherals__lidar/logs/lidar_error_paths.log
+    command: |
+      bash components/peripherals/lidar/tests/test_error_paths.sh
+
+  - name: lidar-uart-hardware-smoke
+    description: >-
+      Manually verifies the UART lidar test binary can initialize the selected
+      hardware, start scanning and receive real frames on the requested serial
+      port.
+    category: functional
+    scopes: [manual]
+    timeout_s: 1200
+    workdir: sdk
+    requires:
+      hardware:
+        - >-
+          Supported UART lidar connected to the target board, with
+          LIDAR_TEST_MODEL, LIDAR_TEST_DEV_PATH and optional LIDAR_TEST_BAUD
+          exported before running the test.
+      supervision: true
+    artifacts:
+      - output/test/manual/components__peripherals__lidar/modules/components__peripherals__lidar/logs/lidar_hardware_uart_smoke.log
+    command: |
+      bash components/peripherals/lidar/tests/test_hw_uart_smoke.sh
