@@ -8,7 +8,7 @@ include("${_LIDAR_ROOT}/cmake/FetchThirdParty.cmake")
 
 # This driver uses the sl_* API (sl_lidar.h / sl_lidar_driver.h).
 # Track upstream master latest.
-set(_RPLIDAR_GIT_REPO "https://github.com/Slamtec/rplidar_sdk.git")
+set(_RPLIDAR_GIT_REPO "https://gitee.com/spacemit-robotics/rplidar_sdk.git")
 set(_RPLIDAR_GIT_REF "master")
 
 fetch_thirdparty(NAME rplidar GIT_REPO "${_RPLIDAR_GIT_REPO}" GIT_REF "${_RPLIDAR_GIT_REF}" OUT_SOURCE_DIR _RPLIDAR_ROOT)
